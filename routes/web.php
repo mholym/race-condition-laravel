@@ -26,7 +26,6 @@ Route::get('/dashboard', function () {
 Route::prefix('polls')->controller(PollController::class)->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', 'index')->name('polls');
-        Route::post('/', 'store');
         Route::get('/create', 'create');
         Route::post('{id}', 'vote');
         Route::get('/revoke', 'revokeVotes'); // it is what it is
