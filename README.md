@@ -9,7 +9,7 @@ This repository contains demonstration of poor programming against race conditio
 
 ## TODO
 
-- [ ] Polls
+- [x] Polls
 - [ ] Coupons
 - [ ] Polls v2 (fixed)
 - [ ] Coupons v2 (fixed)
