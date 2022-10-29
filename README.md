@@ -7,6 +7,15 @@ This repository contains demonstration of poor programming against race conditio
 - Polls
 - Coupons
 
+## Setup
+
+1. Clone repository
+2. Run `composer install`
+3. Replace `.env` with `.env.example`
+4. Create and connect to database
+5. Run `php artisan migrate`
+6. Run `php artisan serve` to start application
+
 ## TODO
 
 - [x] Polls
