@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +22,21 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::prefix('polls')->controller(PollController::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/', 'index')->name('polls');
+        Route::post('/', 'store');
+        Route::get('/create', 'create');
+        Route::post('{id}', 'vote');
+        Route::get('/revoke', 'revokeVotes'); // it is what it is
+    });
+});
+
+Route::prefix('answers')->controller(AnswerController::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/', 'index')->name('answers');
+    });
+});
 
 require __DIR__.'/auth.php';

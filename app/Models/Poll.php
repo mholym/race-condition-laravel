@@ -16,6 +16,11 @@ class Poll extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->withCount('votes');
+    }
+
+    public function votes()
+    {
+        return $this->hasManyThrough(Vote::class, Answer::class);
     }
 }

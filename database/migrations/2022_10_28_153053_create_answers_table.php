@@ -16,7 +16,12 @@ return new class extends Migration
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->string('text');
+            $table->bigInteger('poll_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('poll_id')
+                ->references('id')->on('polls')
+                ->onDelete('cascade');
         });
     }
 
