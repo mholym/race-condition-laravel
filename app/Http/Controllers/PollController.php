@@ -42,10 +42,10 @@ class PollController extends Controller
         $votes = Vote::where('user_id', $user_id)
                     ->where('answer_id', $request['answer'])
                     ->first();
-        // Race condition here
-        sleep(2);
-        // Sleep to make it easier to exploit
         if($votes == null) {
+            // Race condition here
+            sleep(2);
+            // Sleep to make it easier to exploit
             $vote = Vote::create([
                 'user_id' => $user_id,
                 'answer_id' => $request['answer'],
