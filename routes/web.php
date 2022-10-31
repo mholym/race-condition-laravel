@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,14 @@ Route::prefix('polls')->controller(PollController::class)->group(function () {
 Route::prefix('answers')->controller(AnswerController::class)->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', 'index')->name('answers');
+    });
+});
+
+Route::prefix('coupons')->controller(CouponController::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/', 'index')->name('coupons');
+        Route::get('/cart', 'cart')->name('cart');
+        Route::post('/cart', 'apply');
     });
 });
 
