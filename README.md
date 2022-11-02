@@ -15,7 +15,7 @@ In each part sleep is used to allow for easier exploit of race condition.
 2. Run `composer install`
 3. Replace `.env` with `.env.example`
 4. Create and connect to database
-5. Run `php artisan migrate --seed` with default seeder
+5. Run `php artisan migrate --seed` gwith default seeder
 6. Run `php artisan serve` to start application. For testing race conditions local webserver should be used.
 7. Log@in as `admin@admin.sk` and `adminadmin`
 
@@ -60,6 +60,7 @@ First part is a simple polls app represented by Polls tab. In each poll user can
                 table.add(req)
 ```
 7. Start attack and observe results. In case only one vote is added, make sure laravel is not run with `php artisan serve` but use local webserver like apache
+8. Repeat the same for `v2` version for the remaining poll
 
 ## Coupons
 
@@ -102,7 +103,7 @@ Second part is a simple coupon redeeming app and can be found in Coupons tab. Si
                 table.add(req)
 ```
 7. Start attack and observe results. In case coupon is only redeemed once, make sure laravel is not run with `php artisan serve` but use local webserver like apache
-
+8. Repeat the same for `v2` version for the remaining coupon
 
 ## TODO
 
@@ -110,8 +111,8 @@ Second part is a simple coupon redeeming app and can be found in Coupons tab. Si
 - [x] Coupons
 - [x] Polls exploit
 - [x] Coupons exploit
-- [ ] Polls v2 (fixed)
-- [ ] Coupons v2 (fixed)
+- [x] Polls v2 (fixed)
+- [x] Coupons v2 (fixed)
 
 ## Licensing
 
