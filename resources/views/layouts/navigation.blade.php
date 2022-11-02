@@ -34,6 +34,18 @@
                         {{ __('Cart') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('polls-fix')" :active="request()->routeIs('polls-fix')">
+                        {{ __('Polls v2') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('cart-fix')" :active="request()->routeIs('cart-fix')">
+                        {{ __('Cart v2') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
