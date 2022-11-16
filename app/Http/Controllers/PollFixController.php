@@ -47,7 +47,7 @@ class PollFixController extends Controller
                 ->lockForUpdate()
                 ->first();
 
-            if($votes == null) {
+            if(!$votes) {
                 $vote = Vote::create([
                     'user_id' => $user_id,
                     'answer_id' => $request['answer'],

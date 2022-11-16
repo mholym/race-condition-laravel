@@ -1,4 +1,4 @@
-## WIP - Race conditions in Laravel (demo)
+## Race conditions in Laravel (demo)
 
 Laravel is a very popular framework for building web applications in php. This is the reason we have chosen it for vulnerability demo purposes.
 
